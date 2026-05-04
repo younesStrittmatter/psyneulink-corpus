@@ -1,0 +1,35 @@
+name: validate
+on:
+  pull_request:
+    paths:
+      - "community/brainlike/**"
+      - ".github/workflows/validate.yml"
+  push:
+    branches: [main]
+    paths:
+      - "community/brainlike/**"
+jobs:
+  schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install check-jsonschema
+      - name: Validate brainlike YAMLs
+        run: |
+          set -e
+          shopt -s globstar nullglob
+          files=( community/brainlike/**/*.yaml community/brainlike/**/*.yml )
+          # Drop the schema itself
+          targets=()
+          for f in "${files[@]}"; do
+            base="$(basename "$f")"
+            [[ "$base" == "_schema.yaml" ]] && continue
+            targets+=( "$f" )
+          done
+          if [ ${#targets[@]} -eq 0 ]; then
+            echo "No brainlike YAMLs to validate."
+            exit 0
+          fi
+          check-jsonschema --schemafile community/brainlike/_schema.yaml "${targets[@]}"

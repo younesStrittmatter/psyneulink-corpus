@@ -1,0 +1,42 @@
+name: Tool feedback
+description: Report a problem with a tool exposed by psyneulink-mcp.
+title: "[tool feedback] "
+labels: ["feedback"]
+body:
+  - type: input
+    id: tool_name
+    attributes:
+      label: Tool name
+      description: The MCP tool the issue is about.
+      placeholder: psyneulink_create_mechanism
+    validations:
+      required: true
+  - type: dropdown
+    id: issue_type
+    attributes:
+      label: Issue type
+      options:
+        - unclear_description
+        - wrong_schema
+        - missing_arg
+        - wrong_behavior
+        - other
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What was wrong, in plain language.
+    validations:
+      required: true
+  - type: textarea
+    id: suggested_fix
+    attributes:
+      label: Suggested fix
+      description: Optional — what would have made the tool usable.
+  - type: textarea
+    id: agent_context
+    attributes:
+      label: Agent context
+      description: Optional — what you were trying to accomplish.
