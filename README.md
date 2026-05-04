@@ -24,8 +24,7 @@ A **GitHub account is required** for both. See `docs/CONTRIBUTING.md`.
 
 ## Status
 
-Skeleton only. The schema, templates, CODEOWNERS, and CI validation all
-land in a follow-up plan.
+Contribution paths are documented in [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md).
 
 ## Layout
 
