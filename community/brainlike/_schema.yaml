@@ -1,0 +1,32 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://psyneulink-ai/brainlike/v1"
+title: "Brainlike entry"
+type: object
+required: [id, title, description, predicates, examples]
+additionalProperties: false
+properties:
+  id:
+    type: string
+    pattern: "^[a-z0-9-]+$"
+    description: "Globally unique within community/brainlike/. kebab-case."
+  title:
+    type: string
+    maxLength: 80
+  description:
+    type: string
+  predicates:
+    type: array
+    items: { type: string }
+    minItems: 1
+    description: "What makes this brainlike. One claim per item."
+  examples:
+    type: array
+    items: { type: string }
+    description: "PNL configs / snippets / scenarios that exemplify it."
+  references:
+    type: array
+    items: { type: string }
+    description: "Papers, URLs."
+  contributor:
+    type: string
+    description: "GitHub handle of the original contributor."

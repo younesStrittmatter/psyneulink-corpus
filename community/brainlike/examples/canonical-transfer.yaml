@@ -1,0 +1,29 @@
+id: canonical-transfer
+title: TransferMechanism leaky integrator (temporal smoothing)
+description: >
+  Models simple leaky integration over net input: internal state mixes the prior state
+  with incoming activity at a bounded rate. In PsyNeuLink, TransferMechanism in
+  integrator mode applies a recurrent step that trades off persistence versus
+  responsiveness, approximating exponential smoothing of upstream signals.
+predicates:
+  - "Temporal integration mixes prior output with current drive; higher integration rate yields faster tracking of inputs."
+  - "State updates are local to the mechanism; no recurrence through other projections is assumed in this motif."
+examples:
+  - |
+    TransferMechanism with integrator dynamics (rate-controlled smoothing over time):
+
+      import psyneulink as pnl
+
+      m = pnl.TransferMechanism(
+          name="leaky_accumulator",
+          size=4,
+          function=pnl.Linear(slope=1.0, intercept=0.0),
+          integrator_mode=True,
+          integration_rate=0.25,
+      )
+
+      # Each execution blends prior state toward the current Linear output;
+      # integration_rate nearer 1 reacts quickly; nearer 0 smooths heavily.
+references:
+  - "https://princetonuniversity.github.io/PsyNeuLink/Mechanism.html#transfermechanisms"
+  - "https://github.com/PrincetonUniversity/PsyNeuLink/tree/master/psyneulink/core/components/mechanisms/processing/transfer"
