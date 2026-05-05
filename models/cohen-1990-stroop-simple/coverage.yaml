@@ -1,8 +1,0 @@
-model: cohen-1990-stroop-simple
-domain: stroop
-covers:
-  - stroop-congruency
-  - stroop-word-dominance
-intentionally_omitted:
-  - stroop-sequential: "no trial-history mechanism in this model — would need a control loop or activation carry-over"
-fails: []
