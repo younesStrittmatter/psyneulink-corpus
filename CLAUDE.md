@@ -128,8 +128,3 @@ plans/                   in-flight build plans (delete when implemented)
 - IDs in `community/brainlike/<id>.yaml` are kebab-case and globally
   unique within the directory.
 - No Python here.
-
-## Status
-
-Skeleton with `README.md` + this `CLAUDE.md`. The schema, templates,
-CODEOWNERS, and CI all land via `plans/corpus-skeleton.md`.
