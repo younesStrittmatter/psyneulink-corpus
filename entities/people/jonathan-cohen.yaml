@@ -1,0 +1,14 @@
+id: jonathan-cohen
+name: "Jonathan D. Cohen"
+affiliation: "Princeton University (Princeton Neuroscience Institute, Department of Psychology)"
+website: "https://pni.princeton.edu/faculty/jonathan-cohen"
+short_bio: >
+  Co-developer of PsyNeuLink and a long-standing voice in
+  computational accounts of cognitive control. Best known in this
+  corpus for the Cohen, Dunbar & McClelland (1990) PDP account of
+  the Stroop effect and the Botvinick et al. (2001) conflict-
+  monitoring proposal — both of which anchor the Stroop seed across
+  `tasks/`, `effects/`, `models/`, and `brainlike/`.
+aliases:
+  - "Jonathan Cohen"
+  - "J. D. Cohen"

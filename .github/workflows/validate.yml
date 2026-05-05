@@ -3,11 +3,24 @@ on:
   pull_request:
     paths:
       - "community/brainlike/**"
+      - "tasks/**"
+      - "effects/**"
+      - "models/**"
+      - "brainlike/**"
+      - "entities/**"
+      - "datasets/**"
       - ".github/workflows/validate.yml"
   push:
     branches: [main]
     paths:
       - "community/brainlike/**"
+      - "tasks/**"
+      - "effects/**"
+      - "models/**"
+      - "brainlike/**"
+      - "entities/**"
+      - "datasets/**"
+
 jobs:
   schema:
     runs-on: ubuntu-latest
@@ -15,8 +28,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
-      - run: pip install check-jsonschema
-      - name: Validate brainlike YAMLs
+      - run: pip install check-jsonschema pyyaml
+
+      - name: Validate community/brainlike YAMLs against _schema.yaml
         run: |
           set -e
           shopt -s globstar nullglob
@@ -33,3 +47,66 @@ jobs:
             exit 0
           fi
           check-jsonschema --schemafile community/brainlike/_schema.yaml "${targets[@]}"
+
+      - name: Knowledge-pool layout sanity check
+        run: |
+          set -e
+          # Each top-level knowledge-pool directory must exist and be
+          # documented by a README.md. Real schema validation against
+          # PSYCHE (TaskSpec / EffectSpec / DatasetSpec) lands in a
+          # later phase via psyneulink-mcp; this step is the structural
+          # smoke test that keeps the layout honest in the meantime.
+          for d in tasks effects models brainlike entities/people entities/papers datasets; do
+            if [ ! -d "$d" ]; then
+              echo "missing knowledge-pool directory: $d"
+              exit 1
+            fi
+            if [ ! -f "$d/README.md" ]; then
+              echo "missing README.md in: $d"
+              exit 1
+            fi
+          done
+
+      - name: YAML-parses smoke test for new knowledge-pool directories
+        run: |
+          set -e
+          python - <<'PY'
+          import sys
+          import pathlib
+          import yaml
+
+          roots = [
+              "tasks",
+              "effects",
+              "models",
+              "brainlike",
+              "entities/people",
+              "entities/papers",
+              "datasets",
+          ]
+
+          failures = []
+          for root in roots:
+              p = pathlib.Path(root)
+              if not p.exists():
+                  continue
+              for f in p.rglob("*.yaml"):
+                  try:
+                      with f.open() as fh:
+                          yaml.safe_load(fh)
+                  except yaml.YAMLError as exc:
+                      failures.append(f"{f}: {exc}")
+              for f in p.rglob("*.yml"):
+                  try:
+                      with f.open() as fh:
+                          yaml.safe_load(fh)
+                  except yaml.YAMLError as exc:
+                      failures.append(f"{f}: {exc}")
+
+          if failures:
+              print("YAML parse failures:")
+              for line in failures:
+                  print(f"  {line}")
+              sys.exit(1)
+          print("All YAMLs parse.")
+          PY

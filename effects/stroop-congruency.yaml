@@ -1,0 +1,21 @@
+id: stroop-congruency
+domain: stroop
+task: stroop
+description: >
+  Mean reaction time for incongruent color-word trials is reliably
+  slower than for congruent trials in the standard color-naming
+  Stroop. This is the canonical Stroop interference effect and the
+  smallest contrast the corpus uses to anchor end-to-end testing
+  across `tasks/`, `effects/`, and `models/`.
+
+citations:
+  - stroop-1935
+  - macleod-1991
+
+test:
+  kind: comparison
+  group_by: congruency
+  statistic: mean_rt
+  expected: "incongruent > congruent"
+  tolerance:
+    min_effect_ms: 30

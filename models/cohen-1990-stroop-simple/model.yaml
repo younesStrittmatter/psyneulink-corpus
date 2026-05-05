@@ -1,0 +1,22 @@
+id: cohen-1990-stroop-simple
+domain: stroop
+framework: psyneulink
+paper: cohen-1990-stroop
+status: exemplar
+description: >
+  Minimal feed-forward Cohen, Dunbar & McClelland (1990) Stroop
+  network: two input layers (color, word), each projecting through a
+  hidden layer that is gated by a top-down task-demand input, into a
+  shared response layer with lateral inhibition. The word pathway has
+  stronger weights than the color pathway, reflecting word reading
+  being the more practiced task. This seed is the smallest build that
+  produces the canonical congruency effect and the word-reading vs
+  color-naming asymmetry; it deliberately has no trial-history
+  mechanism, so it cannot reproduce the Gratton sequential effect.
+
+composition:
+  # TODO: PNL composition build lands in a later phase. The catalogue
+  # currently carries only metadata so retrieval / coverage tooling
+  # can be wired up without waiting on the executable build.
+  path: TODO
+  format: TODO

@@ -1,0 +1,33 @@
+id: stroop-word-dominance
+domain: stroop
+task: stroop
+description: >
+  Reading the printed word is faster and more accurate than naming
+  the ink color. The canonical interpretation (MacLeod, 1991; Cohen,
+  Dunbar & McClelland, 1990) is that word reading is more practiced
+  than color naming, so the word-reading pathway dominates in
+  cross-talk. Empirically this shows up as: (a) word-reading trials
+  have lower mean RT and higher accuracy than color-naming trials,
+  and (b) the congruency effect on color-naming is much larger than
+  on word reading.
+  
+  NOTE / known coupling: this effect references a `task_demand`
+  factor (`color_naming` vs `word_reading`) that is not present in
+  the canonical `tasks/stroop.yaml` TaskSpec, which is configured for
+  the standard color-naming Stroop only. Adding this effect's
+  testable form requires either extending `tasks/stroop.yaml` with a
+  `task_demand` factor or splitting the Stroop task into two TaskSpec
+  variants. This is intentionally left to a follow-up; the effect is
+  seeded here so the asymmetry it captures is visible to retrieval.
+
+citations:
+  - macleod-1991
+  - cohen-1990-stroop
+
+test:
+  kind: comparison
+  group_by: task_demand
+  statistic: mean_rt
+  expected: "word_reading < color_naming"
+  tolerance:
+    min_effect_ms: 50

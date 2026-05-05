@@ -1,0 +1,27 @@
+id: conflict-monitoring-acc
+domain: cognitive-control
+title: "ACC implements conflict monitoring"
+claim: >
+  Anterior cingulate cortex (ACC) computes a scalar conflict signal
+  proportional to simultaneous activation of competing response
+  representations, and that signal drives downstream upregulation of
+  cognitive control on subsequent trials. Behaviorally, this loop
+  predicts post-conflict slowing and the Gratton congruency-sequence
+  effect; physiologically, it predicts ACC activity that scales with
+  Hopfield-style energy of the response layer.
+
+predicates:
+  - "Conflict (co-activation of competing response units) drives ACC activity above baseline."
+  - "Increased ACC activity on trial t upregulates control on trial t+1, biasing task-relevant pathways."
+  - "Therefore the congruency effect on trial t+1 is reduced after a high-conflict (incongruent) trial t — the Gratton effect."
+
+mechanisms:
+  - "co-activation-based conflict signal (Hopfield energy of the response layer)"
+  - "control-loop feedback that gates task-demand units on the next trial"
+
+citations:
+  - botvinick-2001
+  - macleod-1991
+
+attributed_to:
+  - jonathan-cohen
